@@ -3,6 +3,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/DB.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/MyFunction.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/Subcategories.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/Global_categories.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/ParametersProduct.php";
 
 if (isset($_POST['action'])) {
@@ -14,8 +15,62 @@ if (isset($_POST['action'])) {
     if ($action === "filter_product") {
         filter_product();
     }
+    if($action === "WriteSubcategory"){
+        $Subcategories = new Subcategories();
+        echo json_encode($Subcategories->SelectAll($_POST['id']));
+    }
+    if($action === "WriteFilter"){
+        WriteFilter();
+    }
+    if($action === "StartGlCategory"){
+        $SelectStartIdGlobal_categories = new Global_categories();
+        echo $SelectStartIdGlobal_categories->SelectStartIdGlobal_categories();
+    }
 }
 
+function WriteFilter() {
+    $db = DB::connect();
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    $IdShop = $_POST['IdShop'];
+    $global_categories = $_POST['global_categories'];
+
+    //Минимальная и максимальная стоимость
+    $sql = "SELECT MAX(`price`) as MaxPrice, MIN(`price`) as MinPrice FROM `product`WHERE `product`.`global_category` = ? AND `product`.`shop_id` = ?";
+    $price = DB::connect()->prepare($sql);
+    $price->execute(array($global_categories, $IdShop));
+    $price = $price->fetch(PDO::FETCH_ASSOC);
+
+
+    if($price['MaxPrice']){
+        $MaxPrice = $price['MaxPrice'];
+    }
+    else $MaxPrice = 0;
+
+    if($price['MinPrice']){
+        $MinPrice = $price['MinPrice'];
+    }
+    else $MinPrice = 0;
+
+    //Подкатегории
+    $subcategories = new Subcategories();
+    $subcategories = $subcategories->SelectAll($global_categories);
+
+
+    //Параметры категории
+    $ParametersProduct = new ParametersProduct();
+    $ParametersProduct = $ParametersProduct->SelectParametersCategory($global_categories);
+
+    $array = [
+        "MaxPrice" => $MaxPrice,
+        "MinPrice" => $MinPrice,
+        "subcategories" => $subcategories,
+        "ParametersProduct" => $ParametersProduct
+    ];
+
+
+    echo json_encode($array);
+}
 
 function write_start($IdShop, $global_categories)
 {
@@ -125,15 +180,16 @@ function filter_product()
     array_push($parameters, $min);
     array_push($parameters, $max);
 
-    if(!empty($_POST['ArraySubcategories'])){
-        $Subcategories = $_POST['ArraySubcategories'];
+    if(!empty($_POST['Subcategories'])){
+        $Subcategories = $_POST['Subcategories'];
 
-        $placeholders = implode(',', array_fill(0, count($Subcategories), '?'));
+        $placeholders = implode(',', array_fill(0, 1, '?'));
         $sql .= " AND `product`.`category` IN ($placeholders)";
+        array_push($parameters, $Subcategories);
 
-        foreach ($Subcategories as $item) {
-            array_push($parameters, $item);
-        }
+//        foreach ($Subcategories as $item) {
+//            array_push($parameters, $item);
+//        }
     }
     if(!empty($_POST['ArrayParameters'])) {
         $ArrayParameters = $_POST['ArrayParameters'];

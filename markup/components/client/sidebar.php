@@ -225,6 +225,8 @@ if ($status === "open" and $directory === "shops") {
 
 
 
+
+
 <?php
 $directory = pathinfo(basename($_SERVER['PHP_SELF']), PATHINFO_FILENAME);
 if ($status === "open" and $directory === "shop") {
@@ -232,9 +234,7 @@ if ($status === "open" and $directory === "shop") {
 } else echo '<div class="col-12 scroll_none d-none">';
 ?>
 <div class="col-12">
-        <h6 class="text-white text-center text-14 my-4 cursor col-10 d-flex justify-content-center mx-auto">Типы аккаунтов
-<!--            <img class="mx-1 my-auto sidebar_filter_arrow" src="/res/st.svg" alt="">-->
-        </h6>
+        <h6 class="text-white text-center text-14 my-4 cursor col-10 d-flex justify-content-center mx-auto">Типы аккаунтов</h6>
 
         <div class="col-12 filter-shops-div-category">
             <?php
@@ -244,15 +244,15 @@ if ($status === "open" and $directory === "shop") {
                  $i < count($array_Global_categories);
                  $i++) {
 
-                if($i == 0) {
-                    echo '<div id="'.$array_Global_categories[$i]['id'].'" class="col-8 mx-auto d-flex cursor menu_filter menu_filter_active p-1 rounded-2 py-1 my-1">
+                if($i === 0) {
+                    echo '<div id="'.$array_Global_categories[$i]['id'].'" class="col-8 mx-auto d-flex cursor filter-shop-gl-category menu_filter menu_filter_active p-1 rounded-2 py-1 my-1">
                 <img width="18" height="18" src="/res/img/img-category/' . $array_Global_categories[$i]['img'] . '">
                 <h6 class="text-12 text-white my-auto mx-3">' . $array_Global_categories[$i]['name'] . '</h6>
             </div>';
 
                 }
                 else {
-                    echo '<div id="' . $array_Global_categories[$i]['id'] . '" class="col-8 mx-auto d-flex cursor menu_filter p-1 rounded-2 py-1 my-1">
+                    echo '<div id="' . $array_Global_categories[$i]['id'] . '" class="col-8 mx-auto d-flex cursor filter-shop-gl-category menu_filter p-1 rounded-2 py-1 my-1">
         <img width="18" height="18" src="/res/img/img-category/' . $array_Global_categories[$i]['img'] . '">
         <h6 class="text-12 text-white my-auto mx-3">' . $array_Global_categories[$i]['name'] . '</h6>
             </div>';
@@ -279,7 +279,7 @@ border-radius: 5px;">
 border-radius: 5px;">
             </div>
 
-            <div class="col-10 mx-auto my-3" id="slider"></div>
+            <div class="col-10 mx-auto my-3" id="filter-shop-input-price"></div>
         </div>
 
     </div>
@@ -296,7 +296,7 @@ border-radius: 5px;">
         <div class="col-12 filter-shops-div-parameters"></div>
     </div>
 
-    <button class="border_blue bg-transparent text-white rounded-3 col-8 d-block mx-auto text-14 mt-3 reset-filter mt-5" onclick="ApplyFilter()">Применить</button>
+    <button class="border_blue bg-transparent text-white rounded-3 col-8 d-block mx-auto text-14 mt-3 reset-filter mt-5" onclick="WriteProductEndPagination()">Применить</button>
 
     <button class="border_blue bg-transparent text-white rounded-3 col-8 d-block mx-auto text-14 mt-3 reset-filter">Сбросить фильтр</button>
 </div>

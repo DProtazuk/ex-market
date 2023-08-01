@@ -20,6 +20,7 @@ if(isset($_GET['id'])){
 else header('Location: /page/client/shop/shops');
 
 ?>
+
 <!doctype html>
 <html lang="ru">
 <head>
@@ -33,13 +34,14 @@ else header('Location: /page/client/shop/shops');
 <body>
 
 <input type="hidden" id="page" value="1">
+<input type="hidden" id="ShopId" value="<?php echo $_GET['id']; ?>">
+
+<?php echo '<input type="hidden" id="global_categories" value='.$SelectStartIdGlobal_categories->SelectStartIdGlobal_categories().'>'; ?>
+<input type="hidden" id="subcategories" class="clear_input">
 
 <input type="hidden" id="MaxPrice" value="">
 <input type="hidden" id="MinPrice" value="">
-<input type="hidden" id="ShopId" value="<?php echo $_GET['id']; ?>">
-<input type="hidden" id="global_categories" value="<?php echo $SelectStartIdGlobal_categories->SelectStartIdGlobal_categories() ?>">
 
-<input type="hidden" id="subcategories" class="clear_input">
 <input type="hidden" id="array-parameters"class="clear_input">
 
 <input type="hidden" id="array-parameters-uniq" class="clear_input">
@@ -135,7 +137,7 @@ else header('Location: /page/client/shop/shops');
                     <div class="col-12 d-flex justify-content-between align-items-center">
 
                         <div class="input-price-seller col-6" style="min-height: 28px; !important;">
-                            <input oninput="ApplyFilter()" class="px-5 text-white col-12 input_search_product text-14 rounded-2 shadow-none border_input clear_input" type="text"
+                            <input oninput="WriteProductEndPagination()" class="px-5 text-white col-12 input_search_product text-14 rounded-2 shadow-none border_input clear_input" type="text"
                                    style="background: url('/res/img/search.svg') no-repeat left;background-position: 3% 100%; background-position-y: center; background-size: 5% 55%; outline:none; background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important;">
                         </div>
 
@@ -189,7 +191,7 @@ else header('Location: /page/client/shop/shops');
 
                         </div>
 
-                        <button style="border: 1px solid #1877F2 !important;" class="d-block mx-auto my-4 mt-5 text-dark text-14 rounded-3 bg-transparent border-0 text-white py-1 ShowMore">Показать еще</button>
+                        <button style="border: 1px solid #1877F2 !important;" class="d-block mx-auto my-4 mt-5 text-dark text-14 rounded-3 bg-transparent border-0 text-white py-1 ShowMore" onclick="ShowMoreProduct()">Показать еще</button>
 
                         <div class="col-12 d-flex justify-content-center mt-4">
                             <div id="pagination-container">

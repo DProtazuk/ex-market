@@ -29,4 +29,11 @@ class Balance
         $sth = $sth->fetch(PDO::FETCH_ASSOC);
         return $sth['balance_referral'];
     }
+
+    public function ReplenishBalanceClient($amount) {
+        if(isset($_COOKIE[''])) {
+
+        }
+        else return false;
+    }
 }
