@@ -283,8 +283,7 @@ function filter_product()
 
         $mass = [
             'count' => $count,
-            'data' => $array,
-            'sql' => $sql
+            'data' => $array
         ];
 
         echo json_encode($mass);

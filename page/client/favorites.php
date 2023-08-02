@@ -45,17 +45,27 @@
                     <div class="col-12 d-flex justify-content-between align-items-center">
 
                         <div class="input-price-seller col-6" style="min-height: 28px; !important;">
-                            <input class="px-5 text-white col-12 input_search_product text-14 rounded-2 shadow-none border_input" type="text"
+
+                            <input type="hidden" id="page" value="1">
+
+                            <input oninput="WriteProductEndPagination()" class="px-5 text-white col-12 input_search_product text-14 rounded-2 shadow-none border_input" type="text"
                                    style="background: url('/res/img/search.svg') no-repeat left;background-position: 3% 100%; background-position-y: center; background-size: 5% 55%; outline:none; background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important;">
                         </div>
 
                         <div class="col-3 d-flex justify-content-end">
-                            <div class="select select_Gl_Cat input-price-seller rounded-2 w-75 text-13 bg_silver border_input" style="background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px !important; max-height: 28px; !important;">
-                                <input class="select__input select__input_Gl_Cat" type="hidden" name="">
-                                <div class="select__head select__head_Gl_Cat text-white px-2 text-13 text-opacity-75 d-flex align-items-center" style="min-height: 28px; !important;"><h6 class="text-14 my-auto" >Фильтровать по</h6>
+                            <div class="select select_Filter_favorite input-price-seller rounded-2 w-75 text-13 bg_silver border_input" style="background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px !important; max-height: 28px; !important;">
+                                <input class="select__input select__input_Filter_favorite" type="hidden" value="default">
+                                <div class="select__head select__head_Filter_favorite text-white px-2 text-13 text-opacity-75 d-flex align-items-center" style="min-height: 28px; !important;"><h6 class="text-14 my-auto" >Фильтровать по</h6>
                                 </div>
-                                <ul class="select__list select__list_Gl_Cat p-1 bg-opacity-50 " style="display: none;">
-
+                                <ul class="select__list select__list_Filter_favorite p-1 bg-opacity-50 rounded-2" style="display: none;">
+                                    <li id="ascending_price" class="select__item select__item_Filter_favorite py-1 mt-1 d-flex align-items-center">по цене &uarr;	</li>
+                                    <li id="decreasing_price" class="select__item select__item_Filter_favorite py-1 d-flex align-items-center">по цене &darr;	</li>
+                                    <li id="ascending_rating" class="select__item select__item_Filter_favorite py-1 mt-1 d-flex align-items-center">по рейтингу &uarr;	</li>
+                                    <li id="decreasing_rating" class="select__item select__item_Filter_favorite py-1 d-flex align-items-center">по рейтингу &darr;	</li>
+                                    <li id="ascending_name" class="select__item select__item_Filter_favorite py-1 d-flex align-items-center">по названию &uarr;	</li>
+                                    <li id="decreasing_name" class="select__item select__item_Filter_favorite py-1 d-flex align-items-center">по названию &darr;	</li>
+                                    <li id="ascending_quantity" class="select__item select__item_Filter_favorite py-1 d-flex align-items-center">по кол-ву &uarr;	</li>
+                                    <li id="decreasing_quantity" class="select__item select__item_Filter_favorite py-1 d-flex align-items-center">по кол-ву &darr;	</li>
                                 </ul>
                             </div>
                         </div>
@@ -84,37 +94,22 @@
 
                     <hr class="my-4 opacity-0">
 
-                    <div class="col-12 table_spisok">
-                        <?php write(4); ?>
-                    </div>
-
-                    <div class="col-12 table_table d-none">
-                        <div class="col-12 d-flex flex-wrap justify-content-between">
-                            <?php print_product(4); ?>
-                        </div>
-                    </div>
-
                     <div class="col-12">
 
-                        <button style="border: 1px solid #1877F2 !important;" class="d-block mx-auto my-4 mt-5 text-dark text-14 rounded-3 bg-transparent border-0 text-white py-1">Показать еще</button>
+                        <input type="hidden" class="display_type" value="table_spisok">
 
-                        <div class="col-3 px-4 mx-auto d-flex justify-content-around text-14 align-items-center">
-                            <svg class="my-auto cursor" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9 1L2 5L9 9" stroke="white"/>
-                            </svg>
-
-                            <h6 class="my-auto cursor my_color fw-bolder">1</h6>
-                            <h6 class="my-auto cursor">2</h6>
-                            <h6 class="my-auto cursor">3</h6>
-                            <h6 class="my-auto cursor">4</h6>
-                            <h6 class="my-auto cursor">...</h6>
-                            <h6 class="my-auto cursor">15</h6>
-
-                            <svg class="my-auto cursor" width="9" height="10" viewBox="0 0 9 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M0.660359 9.01023L7.42427 4.72997L0.333125 1.01692" stroke="white"/>
-                            </svg>
+                        <div class="col-12 div_print_product">
 
                         </div>
+
+                        <button style="border: 1px solid #1877F2 !important;" class="d-block mx-auto my-4 mt-5 text-dark text-14 rounded-3 bg-transparent border-0 text-white py-1 ShowMore" onclick="ShowMoreProduct()">Показать еще</button>
+
+                        <div class="col-12 d-flex justify-content-center mt-4">
+                            <div id="pagination-container">
+                                <!-- здесь будут отображаться элементы -->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -125,7 +120,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"></script>
+
 
 
 <style>
@@ -134,56 +129,7 @@
         background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 24 24"><path fill="%23bbbbbb" d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>');
     }
 </style>
-
-<script>
-    $(document).ready(function() {
-        $(".svg_table").click(function(){
-            $(this).removeClass('opacity-50');
-            $(".svg_spisok").addClass('opacity-50');
-
-            $(".table_table").removeClass('d-none');
-            $(".table_spisok").addClass('d-none');
-        });
-    });
-
-    $(document).ready(function() {
-        $(".svg_spisok").click(function(){
-            $(this).removeClass('opacity-50');
-            $(".svg_table").addClass('opacity-50');
-
-            $(".table_spisok").removeClass('d-none');
-            $(".table_table").addClass('d-none');
-        });
-
-        $( ".div-product" )
-            .on("mouseover", function() {
-                $(this).css("min-height", "329px");
-                $(this).css("max-height", "329px");
-
-                $(this).find(".div-product-description").css("margin-top", "97px");
-
-                $(this).find(".div_none").css("height", "73px");
-                $(this).find(".div-product-h6").css("max-height", "50px");
-                $(this).find(".div-product-h6").css("overflow", "hidden");
-
-                $(this).find(".div-product-img .div-product-img-img").css("transform", "scale(1.3)");
-                $(this).find(".div-product-description").css("background", "#343434");
-            } )
-            .on("mouseout", function() {
-                $(this).css("min-height", "314px");
-                $(this).css("max-height", "314px");
-
-                $(this).find(".div_none").css("height", "88px");
-
-                $(this).find(".div-product-description").css("margin-top", "82px");
-                $(this).find(".div-product-h6").css("max-height", "35px");
-                $(this).find(".div-product-h6").css("overflow", "hidden");
-
-                $(this).find(".div-product-img img").css("transform", "scale(1)");
-                $(this).find(".div-product-description").css("background", "transparent");
-            } );
-    });
-
-</script>
 </body>
+<script type="text/javascript" src="/js/client/paginate.js"></script>
+<script src="/js/client/favorite.js"></script>
 </html>

@@ -267,7 +267,6 @@ $('body').on("click", ".filter-shop-gl-category", function () {
 
 
 function WriteSubcategory(data) {
-    console.log(data);
     let variable = $(".filter-shops-div-subcategories");
 
     variable.empty();
