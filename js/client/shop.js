@@ -660,7 +660,6 @@ function table_spisok(array) {
         "                            <div class=\"col-1\">\n" +
         "                                <div class=\"col-12\">\n" +
         "                                    <div class=\"col-12 position-relative my-auto\">\n" +
-        "                                        <img src=\"/res/img/img-category/" + array['global_categories_img'] + "\" class=\"position-absolute col-5 mx-auto fixed_product_img_category\">\n" +
         "                                        <img style=\"height:70px; object-fit: cover;\" class=\"col-12 rounded-4\" src=\"/res/img/imgProducts/" + array['product_cover'] + "\">\n" +
         "                                    </div>\n" +
         "                                </div>\n" +
@@ -695,10 +694,9 @@ function table_spisok(array) {
 
 function table_table(array) {
     $(".div_print_product").append("<div class=\"w-22 d-flex align-items-center  mb-5\" style=\"min-height: 334px; max-height: 334px;\">\n" +
-        " <a href=\"/page/client/product.php\" class=\"text-decoration-none my-auto text-white col-12 rounded-4 div-product position-relative\" style=\"min-height: 314px; max-height: 314px; background-color:  !important;\">\n" +
+        " <a href=\"/page/client/product/product?id="+array['product_id']+"\" class=\"text-decoration-none my-auto text-white col-12 rounded-4 div-product position-relative\" style=\"min-height: 314px; max-height: 314px; background-color:  !important;\">\n" +
         "                                <div class=\"col-12 position-absolute div-product-img  rounded-4\" style=\"overflow:hidden;\n" +
         "width: 100%; height: 172px;\">\n" +
-        "                                    <img  src=\"/res/img/img-category/" + array['global_categories_img'] + "\" class=\"position-absolute fixed_product_img_category\" style=\"z-index: 777\">\n" +
         "                                    <img style=\"height:172px; \" class=\"col-12 rounded-4  div-product-img-img\" src=\"/res/img/imgProducts/" + array['product_cover'] + "\">\n" +
         "                                </div>\n" +
         "\n" +

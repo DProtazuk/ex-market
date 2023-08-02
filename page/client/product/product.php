@@ -19,7 +19,7 @@ $array = $product->selectWhiteProduct($_GET['id']);
 $arrayProduct = $array['arrayProduct'];
 $arrayparameter_table = $array['arrayparameter_table'];
 
-if(!$arrayProduct){
+if (!$arrayProduct) {
     header('Location: /page/client/product/products');
 }
 ?>
@@ -75,9 +75,11 @@ if(!$arrayProduct){
                 <div class="col-12 d-flex justify-content-between my-4">
                     <div class="col-4 rounded-4">
                         <div class="col-12 position-relative">
-                            <img src="/res/img/img-category/<?php echo $arrayProduct['img'] ?>"
-                                 class="position-absolute fixed_product_img_category">
-                            <img style="max-height: 270px !important; min-height: 270px !important; object-fit: cover;" class="col-12 rounded-4"
+                            <!--                            <img src="/res/img/img-category/-->
+                            <?php //echo $arrayProduct['img'] ?><!--"-->
+                            <!--                                 class="position-absolute fixed_product_img_category">-->
+                            <img style="max-height: 270px !important; min-height: 270px !important; object-fit: cover;"
+                                 class="col-12 rounded-4"
                                  src="/res/img/imgProducts/<?php echo $arrayProduct['cover'] ?>">
                         </div>
                     </div>
@@ -96,7 +98,7 @@ if(!$arrayProduct){
                                     $half = (int)($num / 2); // целая часть от деления на 2
                                     $remainder = $num - $half * 2; // остаток от деления на 2
 
-                                    if($remainder !== 0){
+                                    if ($remainder !== 0) {
                                         if ($remainder == 1) {
                                             $half1 = $half + 1; // первое число больше
                                             $half2 = $half; // второе число меньше
@@ -104,8 +106,7 @@ if(!$arrayProduct){
                                             $half1 = $half; // первое число меньше или равно второму
                                             $half2 = $half + 1; // второе число больше
                                         }
-                                    }
-                                    else {
+                                    } else {
                                         $half1 = $half; // первое число меньше или равно второму
                                         $half2 = $half; // второе число больше
                                     }
@@ -113,9 +114,9 @@ if(!$arrayProduct){
 
                                     <div class="col-3">
                                         <?php
-                                            for ($i = 0; $i < $half2; $i ++){
-                                                echo '<h6 class="text-14 my-2">'.$arrayparameter_table[$i]['name'].'</h6>';
-                                            }
+                                        for ($i = 0; $i < $half2; $i++) {
+                                            echo '<h6 class="text-14 my-2">' . $arrayparameter_table[$i]['name'] . '</h6>';
+                                        }
                                         ?>
 
 
@@ -123,19 +124,21 @@ if(!$arrayProduct){
 
                                     <div class="col-3 mx-4">
                                         <?php
-                                        for ($i = $half2; $i < $num; $i ++){
-                                            echo '<h6 class="text-14 my-2">'.$arrayparameter_table[$i]['name'].'</h6>';
+                                        for ($i = $half2; $i < $num; $i++) {
+                                            echo '<h6 class="text-14 my-2">' . $arrayparameter_table[$i]['name'] . '</h6>';
                                         }
                                         ?>
                                     </div>
 
                                     <div class="col-4 mx-1">
                                         <div class="col-12 d-flex">
-                                            <h6 class="text-14 d-flex col-6 mt-2">Цена</h6><h6 class="mx-1 mt-2"><?php echo $arrayProduct['price'] ?>₽</h6>
+                                            <h6 class="text-14 d-flex col-6 mt-2">Цена</h6><h6
+                                                    class="mx-1 mt-2"><?php echo $arrayProduct['price'] ?> ₽</h6>
                                         </div>
 
                                         <div class="col-12 d-flex">
-                                            <h6 class="text-14 d-flex col-6">В наличии</h6><h6 class="mx-1"><?php echo $arrayProduct['quantity']; ?>
+                                            <h6 class="text-14 d-flex col-6">В наличии</h6><h6
+                                                    class="mx-1"><?php echo $arrayProduct['quantity']; ?>
                                                 шт.</h6>
                                         </div>
 
@@ -145,27 +148,26 @@ if(!$arrayProduct){
 
                                         <div class="col-12 d-flex mt-2 mb-3">
                                             <?php
-                                                if ($role === "unauthorized") {
-                                                    echo '<a href="/page/unauthorized/registration.php" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">
+                                            if ($role === "unauthorized") {
+                                                echo '<a href="/page/unauthorized/registration.php" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">
                                                 Купить
                                             </a>';
-                                                }
-                                                else {
-                                                    echo '<button data-bs-toggle="modal" data-bs-target="#purchaseModal" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">
+                                            } else {
+                                                echo '<button data-bs-toggle="modal" data-bs-target="#purchaseModal" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">
                                                 Купить
                                             </button>';
-                                                }
+                                            }
                                             ?>
 
                                             <?php
-                                                if ($role !== "unauthorized") {
-                                                    ?>
-                                            <div class="mx-2 rounded-2 cursor" style="border: 1px solid #1877F2;">
+                                            if ($role !== "unauthorized") {
+                                                ?>
+                                                <div class="mx-2 rounded-2 cursor" style="border: 1px solid #1877F2;">
 
-                                                <?php
+                                                    <?php
                                                     $favorite = new Favorite();
-                                                    if($favorite->check($_GET['id'])){
-                                                        echo '<div data-id='.$arrayProduct['id'].' class="delete-to-favorites">
+                                                    if ($favorite->check($_GET['id'])) {
+                                                        echo '<div data-id=' . $arrayProduct['id'] . ' class="delete-to-favorites">
                                                     <svg class="m-1" version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width="20" height="20">
                                                         <title>h-svg</title>
                                                         <defs>
@@ -176,7 +178,7 @@ if(!$arrayProduct){
                                                         <use id="Layer" href="#img1" x="0" y="1"/>
                                                     </svg>
                                                 </div> 
-                                                <div data-id="'.$arrayProduct['id'].'" class="add-to-favorites  d-none">
+                                                <div data-id="' . $arrayProduct['id'] . '" class="add-to-favorites  d-none">
                                                     <svg class="m-1" width="20" height="20" viewBox="0 0 22 20" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -184,9 +186,8 @@ if(!$arrayProduct){
                                                               fill="#1877F2"/>
                                                     </svg>
                                                 </div>';
-                                                    }
-                                                    else {
-                                                        echo '<div data-id='.$arrayProduct['id'].' class="delete-to-favorites d-none">
+                                                    } else {
+                                                        echo '<div data-id=' . $arrayProduct['id'] . ' class="delete-to-favorites d-none">
                                                     <svg class="m-1" version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width="20" height="20">
                                                         <title>h-svg</title>
                                                         <defs>
@@ -197,7 +198,7 @@ if(!$arrayProduct){
                                                         <use id="Layer" href="#img1" x="0" y="1"/>
                                                     </svg>
                                                 </div> 
-                                                <div data-id="'.$arrayProduct['id'].'" class="add-to-favorites">
+                                                <div data-id="' . $arrayProduct['id'] . '" class="add-to-favorites">
                                                     <svg class="m-1" width="20" height="20" viewBox="0 0 22 20" fill="none"
                                                          xmlns="http://www.w3.org/2000/svg">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -208,9 +209,9 @@ if(!$arrayProduct){
                                                     }
 
                                                     ?>
-                                            </div>
-                                            <?php
-                                                }
+                                                </div>
+                                                <?php
+                                            }
                                             ?>
                                         </div>
                                     </div>
@@ -225,8 +226,10 @@ if(!$arrayProduct){
 
                 <div class="col-12 rounded-4 bg-silver px-4 py-3 my-4">
                     <a href="" class="text-white text-decoration-none opacity-50 text-14">Шопы</a>
-                    <a href="" class="text-white text-decoration-none opacity-50 mx-5 text-14"><?php echo $arrayProduct['global_categories']; ?></a>
-                    <a href="" class="text-white text-decoration-none opacity-50 text-14"><?php echo $arrayProduct['name']; ?></a>
+                    <a href=""
+                       class="text-white text-decoration-none opacity-50 mx-5 text-14"><?php echo $arrayProduct['global_categories']; ?></a>
+                    <a href=""
+                       class="text-white text-decoration-none opacity-50 text-14"><?php echo $arrayProduct['name']; ?></a>
                 </div>
 
                 <div class="col-12 rounded-4 bg-silver px-4 py-4 my-4 text-14 Regular">
@@ -293,18 +296,22 @@ if(!$arrayProduct){
 
                     <div class="col-4 d-flex justify-content-end">
                         <div class="col-10">
-                            <div class="col-12 rounded-4 bg-silver px-5 py-2 mb-4">
-                                <button class="mx-auto my-4 text-dark fs-6 rounded-3 border_blue bg-transparent text-white py-1 d-block">
+                            <div class="col-12 rounded-4 bg-silver px-5 py-4 mb-4">
+
+                                <?php
+                                if ($role !== "unauthorized") {
+                                    echo '<button class="mx-auto text-dark fs-6 rounded-3 mb-4 border_blue bg-transparent text-white py-1 d-block">
                                     &nbsp; Оставить отзыв &nbsp;
-                                </button>
+                                </button>';
+                                }
+                                ?>
 
                                 <div class="col-8 mx-auto d-flex align-items-center">
                                     <h6 class="my-auto text-14 mx-3">Оценка</h6>
                                     <h6 class="my-auto text-14"><?php
-                                            if($arrayProduct['product_fake_rating'] === "0"){
-                                                echo $arrayProduct['product_rating'];
-                                            }
-                                            else echo $arrayProduct['product_fake_rating'];
+                                        if ($arrayProduct['product_fake_rating'] === "0") {
+                                            echo $arrayProduct['product_rating'];
+                                        } else echo $arrayProduct['product_fake_rating'];
                                         ?></h6>
 
                                     <div class="d-flex col-8 mx-1 my-auto mx-1">
@@ -453,7 +460,8 @@ if(!$arrayProduct){
 </html>
 
 <!-- Modal -->
-<div class="modal fade" id="purchaseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="purchaseModal" aria-hidden="true">
+<div class="modal fade" id="purchaseModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="purchaseModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content bg-transparent text-white">
             <div class="modal-header modal_bg border-0 p-0">
@@ -468,27 +476,27 @@ if(!$arrayProduct){
 
                     <div class="d-flex col-12">
                         <div class="col-4">
-                            <p class="text-14 opacity-75 text-light fw-light copy_product_quantity">В наличии <?php echo $arrayProduct['quantity'] ?> шт.</p>
-                            <p class="text-14 opacity-75 copy_product_price">Цена  <?php echo $arrayProduct['price']; ?> ₽</p>
+                            <p class="text-14 opacity-75 text-light fw-light copy_product_quantity">В
+                                наличии <?php echo $arrayProduct['quantity'] ?> шт.</p>
+                            <p class="text-14 opacity-75 copy_product_price">Цена <?php echo $arrayProduct['price']; ?>
+                                ₽</p>
                         </div>
                         <div>
                             <p class="text-14 opacity-75 text-light fw-light">Рейтинг
                                 <?php
                                 echo $arrayProduct['product_fake_rating'];
-                                if($arrayProduct['product_fake_rating'] !== NULL){
-                                    echo$arrayProduct['product_fake_rating'];
-                                }
-                                else  echo $arrayProduct['product_rating'];
+                                if ($arrayProduct['product_fake_rating'] !== NULL) {
+                                    echo $arrayProduct['product_fake_rating'];
+                                } else  echo $arrayProduct['product_rating'];
                                 ?>
                             </p>
 
                             <div class="d-flex justify-content-center">
                                 <?php
                                 echo $arrayProduct['product_fake_rating'];
-                                    if($arrayProduct['product_fake_rating'] !== NULL){
-                                        echo $MyFunction->create_ratingShop($arrayProduct['product_fake_rating']);
-                                    }
-                                    else  echo $MyFunction->create_ratingShop($arrayProduct['product_rating']);
+                                if ($arrayProduct['product_fake_rating'] !== NULL) {
+                                    echo $MyFunction->create_ratingShop($arrayProduct['product_fake_rating']);
+                                } else  echo $MyFunction->create_ratingShop($arrayProduct['product_rating']);
                                 ?>
                             </div>
                         </div>
@@ -499,7 +507,8 @@ if(!$arrayProduct){
                             <h6 class="text-white text-14 fw-bolder d-block my-auto">Количество </h6>
                         </div>
 
-                        <input type="number" id="name" name="name" class="col-4 text-white border-0 input-price-seller px-3">
+                        <input type="number" id="name" name="name"
+                               class="col-4 text-white border-0 input-price-seller px-3">
                     </div>
 
                     <div class="d-flex col-12 m-auto align-items-center my-3">
@@ -511,19 +520,18 @@ if(!$arrayProduct){
                     </div>
 
                     <?php
-                        if($arrayProduct['discount'] !== 0) {
-                            echo '<div class="d-flex col-12 m-auto align-items-center my-3">
+                    if ($arrayProduct['discount'] !== 0) {
+                        echo '<div class="d-flex col-12 m-auto align-items-center my-3">
                         <div class="d-flex align-items-center col-4">
                             <h6 class="text-white text-14 fw-bolder d-block my-auto">Скидка </h6>
                         </div>
 
                         <div class="d-flex align-items-center col-3">
-                            <h6 class="text-white text-14 fw-bolder d-block my-auto">'.$arrayProduct['discount'].'%</h6>
+                            <h6 class="text-white text-14 fw-bolder d-block my-auto">' . $arrayProduct['discount'] . '%</h6>
                         </div>
                     </div>';
-                        }
+                    }
                     ?>
-
 
 
                     <div class="d-flex col-12 m-auto align-items-center my-3">
@@ -537,8 +545,12 @@ if(!$arrayProduct){
                     </div>
 
                     <div class="col-12 m-auto d-flex py-3">
-                        <button data-bs-dismiss="modal" data-id="" onclick="loading_product.call(this)" type="button" class="btn bg_blue fw-bold small_shadow col-2 text-white button_loading_modal">Купить</button>
-                        <button   type="button" class="btn btn-dg-danger fw-bold small_shadow col-2 mx-4 text-white " data-bs-dismiss="modal">отмена</button>
+                        <button data-bs-dismiss="modal" data-id="" onclick="loading_product.call(this)" type="button"
+                                class="btn bg_blue fw-bold small_shadow col-2 text-white button_loading_modal">Купить
+                        </button>
+                        <button type="button" class="btn btn-dg-danger fw-bold small_shadow col-2 mx-4 text-white "
+                                data-bs-dismiss="modal">отмена
+                        </button>
                     </div>
                 </div>
             </div>
@@ -551,6 +563,7 @@ if(!$arrayProduct){
     .modal-lg, .modal-xl {
         --bs-modal-width: 550px;
     }
+
     .btn-dg-danger, .btn-dg-danger:hover {
         background-color: #C74C4D;
     }
