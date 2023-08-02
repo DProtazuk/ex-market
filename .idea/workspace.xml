@@ -5,15 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="992903cd-43cd-48b1-be71-a2953af28a66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/client/balance/add_balance.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/html.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/client/balance/balance.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/client/balance/balance_history.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/Balance.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Balance.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/client/shop_filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/client/shop_filter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/client/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/shop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/markup/components/client/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/markup/components/client/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/client/shop/shop.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/shop/shop.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/client/balance/add_balance.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/client/balance/add_balance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/client/balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/balance.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/client/balance.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/balance.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +75,12 @@
       <workItem from="1690825871827" duration="3778000" />
       <workItem from="1690874031127" duration="5928000" />
       <workItem from="1690885775670" duration="1909000" />
-      <workItem from="1690889203241" duration="739000" />
+      <workItem from="1690889203241" duration="3236000" />
+      <workItem from="1690893698327" duration="1304000" />
+      <workItem from="1690907205103" duration="5365000" />
+      <workItem from="1690915901523" duration="8484000" />
+      <workItem from="1690926615005" duration="382000" />
+      <workItem from="1690955423335" duration="45000" />
     </task>
     <servers />
   </component>

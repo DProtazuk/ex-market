@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="d-flex my-auto px-4">
-                            <h5 class="">1000 р.</h5>
+                            <h5 class=""><?php echo $balance->BalanceClient($_COOKIE['unique_id']); ?> ₽</h5>
                         </div>
                     </div>
 
@@ -76,22 +76,24 @@
                             <h6 class="text-14 my-4">Пополните на определённую сумму</h6>
 
                             <div class="col-8 d-flex flex-wrap justify-content-between">
-                                <button data-amount="100" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">100 р.</button>
-                                <button data-amount="500" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">500 р.</button>
-                                <button data-amount="1000" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">1000 р.</button>
-                                <button data-amount="1500" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">1500 р.</button>
-                                <button data-amount="2000" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">2000 р.</button>
-                                <button data-amount="5000" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">5000 р.</button>
+                                <button data-amount="100" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">100 ₽</button>
+                                <button data-amount="500" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">500 ₽</button>
+                                <button data-amount="1000" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">1000 ₽</button>
+                                <button data-amount="1500" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">1500 ₽</button>
+                                <button data-amount="2000" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">2000 ₽</button>
+                                <button data-amount="5000" class="text-white text-14 text-center d-flex border border-opacity-50 border-secondary rounded-3 bg-silver px-3 my-2 but_amount">5000 ₽</button>
                             </div>
 
                             <h6 class="text-14 my-4">Сумма пополнения, руб</h6>
 
-                            <div class="input-price-seller col-7">
-                                <input placeholder="Введите сумму платежа" class="text-white bg-silver col-12 text-14 py-1 rounded-2 text-center border_input input-payment-amount" type="number"
-                                       style=" outline:none; background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important;">
-                            </div>
+                            <form action="/backend/client/balance/add_balance.php" method="post">
+                                <div class="input-price-seller col-7">
+                                    <input id="amount" name="amount" placeholder="Введите сумму платежа" class="text-white bg-silver col-12 text-14 py-1 rounded-2 text-center border_input input-payment-amount" type="number"
+                                           style=" outline:none; background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important;">
+                                </div>
 
-                            <button class="btn bg-transparent border_blue btn_buy my-4 px-4 text-14 lh-1 text-white bottom-0 button-top-up">Пополнить</button>
+                                <button id="ButtonSend" type="button" class="btn bg-transparent border_blue btn_buy my-4 px-4 text-14 lh-1 text-white bottom-0 button-top-up">Пополнить</button>
+                            </form>
 
                         </div>
 
@@ -100,106 +102,33 @@
 
                 </div>
 
-                <div class="col-12 bg-silver rounded-4 m-auto my-4 p-4 shadow_status">
+                <div class="col-12 bg-silver rounded-4 m-auto my-4 p-4 shadow_status" style="transition: 0.2s ease;">
 
                     <div class="col-12 d-flex justify-content-between">
                         <div class="col-12 text-white d-flex align-items-center">
-                            <span class="text-secondary text-14 span_coming cursor" style="font-weight: 600;">Приход</span>
+                            <span class="text-white text-14 span_table span_coming cursor">Приход</span>
                             <span class="text-secondary text-14 mx-4">|</span>
-                            <span class="text-white text-14 span_orders cursor">Расход</span>
+                            <span class="text-secondary text-14 span_table span_orders fw-bolder cursor">Расход</span>
 
 
                             <span class="text-secondary text-14 fw-bolder mx-4">|</span>
 
                             <span class="text-14 mx-2">Даты</span>
 
-                            <input value="2023-01-01" type="date" class="text-14 text-white mx-3 input-price-seller px-2 py-1 rounded-2 border_input" style="background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important; border: 1px solid rgba(255, 255, 255, 0.4);">
+                            <input value="<?php echo date('Y-m-d', strtotime('-1 month')); ?>" type="date" class="data-start input-data text-14 text-white mx-3 input-price-seller px-2 py-1 rounded-2 border_input" style="background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important; border: 1px solid rgba(255, 255, 255, 0.4);">
 
-                            <input value="2023-01-01" type="date" class="text-14 text-white mx-3 input-price-seller px-2 py-1 rounded-2 border_input" style="background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important; border: 1px solid rgba(255, 255, 255, 0.4);">
-                        </div>
-
-                        <div class="dropdown">
-
+                            <input type="hidden" class="type_table" value="coming">
+                            
+                            <input value="<?php echo date('Y-m-d'); ?>" type="date" class="data-finish input-data text-14 text-white mx-3 input-price-seller px-2 py-1 rounded-2 border_input" style="background-color: rgba(255, 255, 255, 0.1) !important; min-height: 28px; !important; border: 1px solid rgba(255, 255, 255, 0.4);">
                         </div>
                     </div>
 
-                    <table class="col-12 my-3 table_orders">
-                        <tr class="border-bottom border-secondary text-secondary text-12 fw-bolder">
-                            <td class="col-2 lh-lg">Дата</td>
-                            <td class="col-6">Платежные данные</td>
-                            <td class="col-2">Сумма</td>
-                            <td class="col-2">Исполнение</td>
-                        </tr>
+                    <table class="col-12 my-3 table_coming" style="transition: 0.2s ease;">
 
-                        <tr class="text-white Regular" style="font-weight: 400; font-size: 14px; line-height: 20px;">
-                            <td class="col-2 lh-lg">12.12.2022</td>
-                            <td class="col-6">USDT 666vh654gcjtrhhc64cfhkjghjhvf65fhgvyt677877thjb</td>
-                            <td class="col-2">$123 930</td>
-                            <td class="col-2">
-                                <div class="col-12 mx-auto d-flex justify-content-start align-items-center py-3">
-                                    <div class="rounded-circle" style="width: 6px; height: 6px; background: #95A4FC;">
-
-                                    </div>
-
-                                    <span class="text-12 mx-2" style="color: #95A4FC;">In Progress</span>
-                                </div>
-                            </td>
-
-                        </tr>
-
-                        <tr class="text-white Regular" style="font-weight: 400; font-size: 14px; line-height: 20px;">
-                            <td class="col-2 lh-lg">12.12.2022</td>
-                            <td class="col-6">USDT 666vh654gcjtrhhc64cfhkjghjhvf65fhgvyt677877thjb</td>
-                            <td class="col-2">$123 930</td>
-                            <td class="col-2">
-                                <div class="col-12 mx-auto d-flex justify-content-start align-items-center py-3">
-                                    <div class="rounded-circle" style="width: 6px; height: 6px; background: #A1E3CB;">
-
-                                    </div>
-
-                                    <span class="text-12 mx-2" style="color: #A1E3CB;">Competed</span>
-                                </div>
-                            </td>
-
-                        </tr>
                     </table>
 
-                    <table class="col-12 my-3 d-none table_coming">
-                        <tr class="border-bottom border-secondary text-secondary text-12 fw-bolder">
-                            <td class="col-2 lh-lg">Дата</td>
-                            <td class="col-3">Сумма покупки</td>
-                            <td class="col-3">Процент отчислений</td>
-                            <td class="col-2">Приход</td>
-                            <td class="col-2">Исполнение</td>
-                        </tr>
+                    <table class="col-12 my-3 table_orders d-none">
 
-                        <tr class="text-white" style="font-weight: 400; font-size: 14px; line-height: 20px;">
-                            <td class="col-2 lh-lg">12.12.2022</td>
-                            <td class="col-3">100 р.</td>
-                            <td class="col-3">5%</td>
-                            <td class="col-2">5р.</td>
-                            <td class="col-2">
-                                <div class="col-12 mx-auto d-flex justify-content-start align-items-center py-3">
-                                    <div class="rounded-circle" style="width: 6px; height: 6px; background: #A1E3CB;"></div>
-                                    <span class="text-12 mx-2" style="color: #A1E3CB;">Competed</span>
-                                </div>
-                            </td>
-
-                        </tr>
-
-                        <tr class="text-white" style="font-weight: 400; font-size: 14px; line-height: 20px;">
-                            <td class="col-2 lh-lg">12.12.2022</td>
-                            <td class="col-3">100 р.</td>
-                            <td class="col-3">5%</td>
-                            <td class="col-2">5р.</td>
-                            <td class="col-2">
-                                <div class="col-12 mx-auto d-flex justify-content-start align-items-center py-3">
-                                    <div class="rounded-circle" style="width: 6px; height: 6px; background: #95A4FC;"></div>
-                                    <span class="text-12 mx-2" style="color: #95A4FC;">In Progress</span>
-                                </div>
-                            </td>
-
-                        </tr>
                     </table>
 
                 </div>
