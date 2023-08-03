@@ -476,6 +476,11 @@ if (!$arrayProduct) {
 
                     <div class="d-flex col-12">
                         <div class="col-4">
+                            <input type="hidden" id="max-quantity" value="<?php echo $arrayProduct['quantity'] ?>">
+                            <input type="hidden" id="price" value="<?php echo $arrayProduct['price'] ?>">
+                            <input type="hidden" id="discount" value="<?php echo $arrayProduct['discount'] ?>">
+
+
                             <p class="text-14 opacity-75 text-light fw-light copy_product_quantity">В
                                 наличии <?php echo $arrayProduct['quantity'] ?> шт.</p>
                             <p class="text-14 opacity-75 copy_product_price">Цена <?php echo $arrayProduct['price']; ?>
@@ -484,7 +489,6 @@ if (!$arrayProduct) {
                         <div>
                             <p class="text-14 opacity-75 text-light fw-light">Рейтинг
                                 <?php
-                                echo $arrayProduct['product_fake_rating'];
                                 if ($arrayProduct['product_fake_rating'] !== NULL) {
                                     echo $arrayProduct['product_fake_rating'];
                                 } else  echo $arrayProduct['product_rating'];
@@ -493,7 +497,6 @@ if (!$arrayProduct) {
 
                             <div class="d-flex justify-content-center">
                                 <?php
-                                echo $arrayProduct['product_fake_rating'];
                                 if ($arrayProduct['product_fake_rating'] !== NULL) {
                                     echo $MyFunction->create_ratingShop($arrayProduct['product_fake_rating']);
                                 } else  echo $MyFunction->create_ratingShop($arrayProduct['product_rating']);
@@ -506,9 +509,7 @@ if (!$arrayProduct) {
                         <div class="d-flex align-items-center col-4">
                             <h6 class="text-white text-14 fw-bolder d-block my-auto">Количество </h6>
                         </div>
-
-                        <input type="number" id="name" name="name"
-                               class="col-4 text-white border-0 input-price-seller px-3">
+                        <input type="number" id="quantity" oninput="ChekInputAmount()" max="10" class="col-4 text-white border-0 input-price-seller px-3">
                     </div>
 
                     <div class="d-flex col-12 m-auto align-items-center my-3">
@@ -533,19 +534,18 @@ if (!$arrayProduct) {
                     }
                     ?>
 
-
                     <div class="d-flex col-12 m-auto align-items-center my-3">
                         <div class="d-flex align-items-center col-4">
                             <h6 class="text-white text-14 fw-bolder d-block my-auto">Сумма </h6>
                         </div>
 
                         <div class="d-flex align-items-center col-3">
-                            <h6 class="text-white text-14 fw-bolder d-block my-auto"></h6>
+                            <h6 class="text-white text-14 fw-bolder d-block my-auto span-amount">0 ₽</h6>
                         </div>
                     </div>
 
                     <div class="col-12 m-auto d-flex py-3">
-                        <button data-bs-dismiss="modal" data-id="" onclick="loading_product.call(this)" type="button"
+                        <button onclick="Purchase()" id="save_order" data-id="" type="button"
                                 class="btn bg_blue fw-bold small_shadow col-2 text-white button_loading_modal">Купить
                         </button>
                         <button type="button" class="btn btn-dg-danger fw-bold small_shadow col-2 mx-4 text-white "

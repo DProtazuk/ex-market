@@ -31,3 +31,65 @@ $(".delete-to-favorites").click( function (){
         }
     });
 });
+
+
+function ChekInputAmount() {
+    var value = $("#quantity").val();
+    value = value.replace(/[^0-9]/g, '');
+
+// Проверяем, является ли значение целым числом
+    if(!Number.isInteger(parseFloat(value))){
+        // Если значение не является целым числом, удаляем последний символ
+        value = value.slice(0, -1);
+
+    }
+    // Проверяем, является ли значение меньше 1
+    if(parseFloat(value) < 1){
+        // Если значение меньше 1, устанавливаем значение 1
+        value = 1;
+    }
+    СheckMax(value);
+
+
+
+}
+
+function СheckMax(value){
+    // Ограничиваем вводимое значение до 10
+    let max = parseInt($("#max-quantity").val());
+    if (value > max) {
+        value = max;
+    }
+    // Обновляем значение поля ввода
+    $("#quantity").val(value);
+
+    let discount = $("#discount").val();
+
+    let price = parseFloat($("#price").val());
+
+    let amount = (price*value) - ((price*value)/100)*discount;
+    $(".span-amount").html(amount+" ₽");
+}
+
+
+
+function Purchase() {
+    let quantity = $("#quantity").val();
+
+    let url = new URL(window.location.href);
+    let searchParams = new URLSearchParams(url.search);
+    let id = searchParams.get('id');
+
+    $.ajax({
+        url: "/backend/client/order/add-order.php",
+        method: 'POST',
+        dataType: 'json',
+        data: {
+            quantity: quantity,
+            id: id
+        },
+        success: function (data) {
+            console.log(data);
+        }
+    });
+}

@@ -141,7 +141,7 @@ function down_product($id, $num) {
     file_put_contents($file_name, '');
 
 
-    $sth = DB::connect()->prepare("SELECT * FROM `accounts`  WHERE `id_product` = $id LIMIT ? ");
+    $sth = DB::connect()->prepare("SELECT * FROM `accounts`  WHERE `id_product` = $id AND `status` = 'new' LIMIT ? ");
     $sth->bindValue(1, $num, PDO::PARAM_INT);
     $sth->execute();
     $array = $sth->fetchAll(PDO::FETCH_ASSOC);

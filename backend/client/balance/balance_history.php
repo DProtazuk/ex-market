@@ -11,7 +11,7 @@ $finish = date('Y-m-d', strtotime($finish));
 
 $type = $_POST['type'];
 
-$sql = "SELECT `status`.`name`, `balance_history`.`data`, `balance_history`.`payment_details`, `balance_history`.`amount` FROM `balance_history` INNER JOIN `status` ON `balance_history`.`status` = `status`.`id` WHERE data >= :start_date AND data <= :end_date AND `type` = :type";
+$sql = "SELECT `status`.`name`, `balance_history`.`data`, `balance_history`.`payment_details`, `balance_history`.`amount` FROM `balance_history` INNER JOIN `status` ON `balance_history`.`status` = `status`.`id` WHERE data >= :start_date AND data <= :end_date AND `type` = :type AND `balance_history`.`unique_id` = :unique_id";
 $stmt = DB::connect()->prepare($sql);
 
 
@@ -19,7 +19,8 @@ $stmt = DB::connect()->prepare($sql);
 $stmt->execute(array(
     "start_date" => $start,
     "end_date" => $finish,
-    "type" => $type
+    "type" => $type,
+    "unique_id" => $_COOKIE['unique_id']
 ));
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

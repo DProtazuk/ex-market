@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="992903cd-43cd-48b1-be71-a2953af28a66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/client/order/add-order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/client/shop.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/shop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/client/balance/balance_history.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/client/balance/balance_history.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/seller/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/seller/product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/client/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/product.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/client/product/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/product/product.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +72,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/client/order" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -103,7 +111,10 @@
       <workItem from="1690926615005" duration="382000" />
       <workItem from="1690955423335" duration="9745000" />
       <workItem from="1690987018883" duration="1072000" />
-      <workItem from="1691001404430" duration="2267000" />
+      <workItem from="1691001404430" duration="2516000" />
+      <workItem from="1691036842401" duration="2307000" />
+      <workItem from="1691044760785" duration="11135000" />
+      <workItem from="1691077961672" duration="4032000" />
     </task>
     <servers />
   </component>
