@@ -101,7 +101,6 @@ function write_table() {
             type: type
         },
         success: function (data) {
-            console.log(data);
             let action = $(".table_"+type);
             action.empty();
 

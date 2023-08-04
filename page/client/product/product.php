@@ -544,6 +544,8 @@ if (!$arrayProduct) {
                         </div>
                     </div>
 
+                    <h6 class="text-14 text-danger h6-error"></h6>
+
                     <div class="col-12 m-auto d-flex py-3">
                         <button onclick="Purchase()" id="save_order" data-id="" type="button"
                                 class="btn bg_blue fw-bold small_shadow col-2 text-white button_loading_modal">Купить

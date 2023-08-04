@@ -76,20 +76,26 @@ function СheckMax(value){
 function Purchase() {
     let quantity = $("#quantity").val();
 
-    let url = new URL(window.location.href);
-    let searchParams = new URLSearchParams(url.search);
-    let id = searchParams.get('id');
+    if($.isEmptyObject(quantity)) {
+        $(".h6-error").html("Введите колличество");
+    }
+    else {
+        let url = new URL(window.location.href);
+        let searchParams = new URLSearchParams(url.search);
+        let id = searchParams.get('id');
 
-    $.ajax({
-        url: "/backend/client/order/add-order.php",
-        method: 'POST',
-        dataType: 'json',
-        data: {
-            quantity: quantity,
-            id: id
-        },
-        success: function (data) {
-            console.log(data);
-        }
-    });
+        $.ajax({
+            url: "/backend/client/order/add-order.php",
+            method: 'POST',
+            dataType: 'json',
+            data: {
+                quantity: quantity,
+                id: id
+            },
+            success: function (data) {
+                $(".h6-error").html("");
+                console.log(data);
+            }
+        });
+    }
 }
