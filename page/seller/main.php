@@ -1,13 +1,10 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT']. "/backend/MyFunction.php" ?>
-
-<?php
+<?php require_once $_SERVER['DOCUMENT_ROOT']. "/backend/MyFunction.php";
 
 $MyFunction = new MyFunction();
 
-if($MyFunction->return_role() !== "multi_user"){
-    header('Location: /page/seller/test');
+if($MyFunction->return_role() === "client"){
+    header('Location: /page/seller/test.php');
 }
-
 ?>
 
 

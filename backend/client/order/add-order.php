@@ -31,13 +31,14 @@ if (isset($_COOKIE['unique_id'])) {
 
             $price = $product['price'];
             $discount = $product['discount'];
+            $quantity = $_POST['quantity'];
+
 
             if($discount) {
                 $price = $price-($price/100)*$discount;
             }
 
 
-            $quantity = $_POST['quantity'];
             //Проверка наличия колличества
             if ($product['quantity'] >= $quantity) {
                 //Проверка Баланса
@@ -126,6 +127,43 @@ if (isset($_COOKIE['unique_id'])) {
                         $stmt = DB::connect()->prepare("UPDATE balance SET balance_client = balance_client - ? WHERE unique_id = ?");
                         $stmt->execute([$amount, $_COOKIE['unique_id']]);
                     }
+
+                    $mass = [
+                        'id' => $id_order,
+                        'amount' => $amount,
+                        'quantity' => $quantity,
+                        'status' => 'good',
+                    ];
+
+                    //Если есть рефералка
+                    {
+                        if($ArrayUser['referral_program']){
+                            $sth = DB::connect()->prepare("SELECT `user`.`unique_id`  FROM `user` WHERE `user`.`referral_link` = ?");
+                            $sth->execute(array($ArrayUser['referral_program']));
+                            $ArrayUser = $sth->fetch(PDO::FETCH_ASSOC);
+                            $id_referral = $ArrayUser['unique_id'];
+
+                            $sth = DB::connect()->prepare("SELECT `value` FROM `referral_percentage` WHERE `id` = ?");
+                            $sth->execute(array('1'));
+                            $array = $sth->fetch(PDO::FETCH_ASSOC);
+                            $referralNum = $array['value'];
+
+                            $amount = ceil((($price*$quantity)/100)*$referralNum);
+
+                            $sth = DB::connect()->prepare("INSERT INTO `referral_transfers` SET `id_recipient` = :id_recipient, `id_referral` = :id_referral, `id_order` = :id_order, `amount` = :amount");
+                            $sth->execute(array(
+                                'id_recipient' => $_COOKIE['unique_id'],
+                                'id_referral' => $id_referral,
+                                'id_order' => $id_order,
+                                'amount' => $amount
+                            ));
+
+                        }
+                    }
+
+
+
+                    echo json_encode($mass);
 
                 } else {
 

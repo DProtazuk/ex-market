@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="992903cd-43cd-48b1-be71-a2953af28a66" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/Orders.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/client/reviews/create_reviews.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/client/reviews/delete_img.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/client/reviews/down_img.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/client/jquery.rating.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/client/order/add-order.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/client/order/add-order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/client/balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/balance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/client/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/product.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/page/client/product/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/product/product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/seller/dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/seller/dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/seller/decoration.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/seller/decoration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/seller/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/seller/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/seller/product/create_product.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/seller/product/create_product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/file/63_1691082132.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/file/63_1691082132.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/file/63_1691082163.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/file/63_1691082163.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/img/imgProducts/35512720128.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/res/img/imgProducts/35512720128.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +127,22 @@
       <workItem from="1691077961672" duration="4123000" />
       <workItem from="1691091940751" duration="10477000" />
       <workItem from="1691140320978" duration="3006000" />
+      <workItem from="1691147701491" duration="3696000" />
+      <workItem from="1691151578147" duration="274000" />
+      <workItem from="1691152965305" duration="3455000" />
+      <workItem from="1691168709495" duration="2422000" />
+      <workItem from="1691173384682" duration="1874000" />
+      <workItem from="1691176584493" duration="232000" />
+      <workItem from="1691177026374" duration="512000" />
+      <workItem from="1691182726176" duration="33160000" />
+      <workItem from="1691215912936" duration="1139000" />
+      <workItem from="1691217165229" duration="4947000" />
+      <workItem from="1691223253299" duration="3380000" />
+      <workItem from="1691230556712" duration="4577000" />
+      <workItem from="1691235537232" duration="2805000" />
+      <workItem from="1691240430454" duration="1471000" />
+      <workItem from="1691254353611" duration="897000" />
+      <workItem from="1691256196322" duration="44000" />
     </task>
     <servers />
   </component>

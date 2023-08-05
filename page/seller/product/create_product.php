@@ -1,14 +1,16 @@
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/MyFunction.php" ?>
-<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/Global_categories.php" ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT']. "/backend/MyFunction.php";
 
-<?php
-
-$Global_categories = new Global_categories();
 $MyFunction = new MyFunction();
 
-if ($MyFunction->return_role() !== "multi_user") {
-    header('Location: /page/seller/test');
+if($MyFunction->return_role() === "client"){
+    header('Location: /page/seller/test.php');
 }
+?>
+
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . "/backend/Global_categories.php";
+
+
+$Global_categories = new Global_categories();
 
 ?>
 
