@@ -112,6 +112,11 @@ class EntrySystem
         $balance->create($arrayBalance);
 
 
+        $contacts = "INSERT INTO `contacts`(`unique_id`, `telegram`, `2FA`) VALUES (?, NULL,NULL)";
+        $contacts = DB::connect()->prepare($contacts);
+        $contacts->execute(array($unique_id));
+
+
         setcookie("unique_id", $unique_id, time() + 3600, "/");
         setcookie("referral_link", "", time() - 3600, "/");
         setcookie("role", "client", time() + 3600, "/");

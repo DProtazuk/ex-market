@@ -36,4 +36,13 @@ class ReferralProgram
         $array = $array->fetch(PDO::FETCH_ASSOC);
         return $array['referral_link'];
     }
+
+    public function ReturnReferralPayment_Details() {
+        $unique_id = $_COOKIE['unique_id'];
+        $sql = "SELECT `value` FROM `payment_details` WHERE `unique_id` = ?";
+        $array = DB::connect()->prepare($sql);
+        $array->execute(array($unique_id));
+        $array = $array->fetch(PDO::FETCH_ASSOC);
+        return $array;
+    }
 }

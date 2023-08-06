@@ -20,9 +20,9 @@
             </div>
 
             <div class="d-flex col-5 align-items-center justify-content-end">
-                <div class="d-flex justify-content-center align-items-center cursor col-2">
+                <a href="/page/client/balance" class="d-flex text-decoration-none justify-content-center align-items-center cursor col-2">
                     <h6 class="my-auto mx-1 text-light text-opacity-75"><?php echo $balance->BalanceClient($_COOKIE['unique_id']); ?>₽</h6>
-                </div>
+                </a>
 
                 <a href="/page/client/messages.php" class="d-flex justify-content-start align-items-center cursor col-1 mx-4 svg_message_header">
                     <svg width="25" height="20" viewBox="0 0 27 20" fill="none" xmlns="http://www.w3.org/2000/svg">

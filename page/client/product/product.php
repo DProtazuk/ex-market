@@ -48,7 +48,6 @@ if (!$arrayProduct) {
 <!--<input type="hidden" class="active_menu" data-type="sidebar" value="menu_sidebar_shops" data-mini="menu_sidebar_shops_mini">-->
 
 
-
 <input type="hidden" class="active_menu" data-type="sidebar" value="menu_sidebar_product"
        data-mini="menu_sidebar_product_mini">
 
@@ -147,7 +146,9 @@ if (!$arrayProduct) {
                                         </div>
 
                                         <div class="col-12 d-flex">
-                                            <h6 class="text-14 d-flex col-6">Продано</h6><h6 class="mx-1"><?php echo $Orders->ReturnOrderNum($_GET['id']); ?> шт.</h6>
+                                            <h6 class="text-14 d-flex col-6">Продано</h6><h6
+                                                    class="mx-1"><?php echo $Orders->ReturnOrderNum($_GET['id']); ?>
+                                                шт.</h6>
                                         </div>
 
                                         <div class="col-12 d-flex mt-2 mb-3">
@@ -162,13 +163,13 @@ if (!$arrayProduct) {
                                             </button>';
                                             }
                                             ?>
-<!--                                            <button data-bs-toggle="modal" data-bs-target="#ModalGoodOrder" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">-->
-<!--                                                Купить-->
-<!--                                            </button>-->
-<!---->
-<!--                                            <button data-bs-toggle="modal" data-bs-target="#ModalReview" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">-->
-<!--                                                Купить-->
-<!--                                            </button>-->
+                                            <!--                                            <button data-bs-toggle="modal" data-bs-target="#ModalGoodOrder" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">-->
+                                            <!--                                                Купить-->
+                                            <!--                                            </button>-->
+                                            <!---->
+                                            <!--                                            <button data-bs-toggle="modal" data-bs-target="#ModalReview" class="btn text-white lh-1 col-6 my-auto text-16 bg-transparent border-secondary border-0 bg_blue text-center">-->
+                                            <!--                                                Купить-->
+                                            <!--                                            </button>-->
 
                                             <?php
                                             if ($role !== "unauthorized") {
@@ -254,58 +255,90 @@ if (!$arrayProduct) {
                         </div>
 
                         <?php
-                            $sql = "SELECT * FROM `reviews` LEFT JOIN `reviews_img` ON `reviews`.`id` = ``";
-                        ?>
+                        //                        echo '<pre>';
+                        $sql = "SELECT `reviews`.`id`, `user`.`name`, `reviews`.`rating`, `reviews`.`dignities`, `reviews`.`disadvantages`, `reviews`.`comment` , `reviews`.`img` FROM `user`
+                                INNER JOIN `reviews` ON `user`.`unique_id` = `reviews`.`unique_id`
+                                WHERE `reviews`.`product_id` = ?";
+                        $sql = DB::connect()->prepare($sql);
+                        $sql->execute(array($_GET['id']));
+                        $arrayReviews = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+                        foreach ($arrayReviews as $arrayReviews2) { ?>
+                            <div class="col-12 mt-5">
+                                <div class="col-9 d-flex">
+                                    <div class="d-flex col-6">
+                                        <img src="/res/img/elipse.png" width="29" height="29">
+                                        <h6 class="text-15 my-auto mx-3"><?php echo $arrayReviews2['name']; ?></h6>
+                                    </div>
 
-                        <div class="col-9 mt-3">
-                            <div class="col-12 d-flex">
-                                <div class="d-flex col-6">
-                                    <img src="/res/img/elipse.png" width="29" height="29">
-                                    <h6 class="text-15 my-auto mx-3">Имя пользователя</h6>
-                                </div>
+                                    <div class="col-5 d-flex align-items-center">
+                                        <h6 class="my-auto text-15 mx-3">Оценка</h6>
+                                        <h6 class="my-auto text-15">5.0</h6>
 
-                                <div class="col-5 d-flex align-items-center">
-                                    <h6 class="my-auto text-15 mx-3">Оценка</h6>
-                                    <h6 class="my-auto text-15">5.0</h6>
-
-                                    <div class="d-flex col-3 mx-1 my-auto mx-1">
-                                        <img class="w-22 my-auto" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
+                                        <div class="d-flex col-3 mx-2 my-auto mx-1">
+                                            <?php echo $MyFunction->create_ratingShop($arrayReviews2['rating']); ?>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-12 my-2 mt-4">
-                                <h6 class="text-white-75 text-15 my-3">Достоинства:</h6>
-                                <p class="text-14 text-white-75 Regular">Зарегистрирован на реальный индийский номер (в
-                                    случае чека смс не выдаю)
-                                    Прокси регистрации Мобильные ИндияПол женскийИмя на латиницеТокена нет
-                                    Рекламного кабинета нет
-                                </p>
-                            </div>
+                                <?php
+                                if ($arrayReviews2['dignities']) {
+                                    ?>
+                                    <div class="col-9 my-2 mt-4">
+                                        <h6 class="text-white-75 text-15 my-3">Достоинства:</h6>
+                                        <p class="text-14 text-white-75 Regular">
+                                            <?php echo $arrayReviews2['dignities']; ?>
+                                        </p>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
 
-                            <div class="col-12 my-2 mt-4">
-                                <h6 class="text-white-75 text-15 my-3">Недостатки:</h6>
-                                <p class="text-14 text-white-75 Regular">Зарегистрирован на реальный индийский номер (в
-                                    случае чека смс не выдаю)
-                                    Прокси регистрации Мобильные ИндияПол женскийИмя на латиницеТокена нет
-                                    Рекламного кабинета нет
-                                </p>
-                            </div>
+                                <?php
+                                if ($arrayReviews2['disadvantages']) {
+                                    ?>
+                                    <div class="col-9 my-2 mt-4">
+                                        <h6 class="text-white-75 text-15 my-3">Недостатки:</h6>
+                                        <p class="text-14 text-white-75 Regular">
+                                            <?php echo $arrayReviews2['disadvantages']; ?>
+                                        </p>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
 
-                            <div class="col-12 my-2 mt-4">
-                                <h6 class="text-white-75 text-15 my-3">Комментарий:</h6>
-                                <p class="text-14 text-white-75 Regular">Зарегистрирован на реальный индийский номер (в
-                                    случае чека смс не выдаю)
-                                    Прокси регистрации Мобильные ИндияПол женскийИмя на латиницеТокена нет
-                                    Рекламного кабинета нет
-                                </p>
+                                <?php
+                                if ($arrayReviews2['comment']) {
+                                    ?>
+                                    <div class="col-9 my-2 mt-4">
+                                        <h6 class="text-white-75 text-15 my-3">Комментарий:</h6>
+                                        <p class="text-14 text-white-75 Regular">
+                                            <?php echo $arrayReviews2['comment']; ?>
+                                        </p>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
+                                <?php
+                                if ($arrayReviews2['img'] !== NULL) {
+                                    $img = json_decode($arrayReviews2['img']);
+                                    ?>
+                                    <div class="col-12 my-2 mt-4 d-flex flex-wrap" style="gap: 2%;">
+                                        <?php
+                                        foreach ($img as $imgItem) {
+                                            echo '<a class="col-3 m-3" target="_blank" href="/res/img/reviews/' . $imgItem . '">
+                                                <img class="col-12" src="/res/img/reviews/' . $imgItem . '" ></a>';
+                                        }
+                                        ?>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
                             </div>
-                        </div>
+                        <?php }
+                        //                            print_r($arrayReviews);
+                        ?>
 
                     </div>
 
@@ -313,13 +346,13 @@ if (!$arrayProduct) {
                         <div class="col-10">
                             <div class="col-12 rounded-4 bg-silver px-5 py-4 mb-4">
 
-<!--                                --><?php
-//                                if ($role !== "unauthorized") {
-//                                    echo '<button class="mx-auto text-dark fs-6 rounded-3 mb-4 border_blue bg-transparent text-white py-1 d-block">
-//                                    &nbsp; Оставить отзыв &nbsp;
-//                                </button>';
-//                                }
-//                                ?>
+                                <!--                                --><?php
+                                //                                if ($role !== "unauthorized") {
+                                //                                    echo '<button class="mx-auto text-dark fs-6 rounded-3 mb-4 border_blue bg-transparent text-white py-1 d-block">
+                                //                                    &nbsp; Оставить отзыв &nbsp;
+                                //                                </button>';
+                                //                                }
+                                //                                ?>
 
                                 <div class="col-8 mx-auto d-flex align-items-center">
                                     <h6 class="my-auto text-14 mx-3">Оценка</h6>
@@ -336,11 +369,6 @@ if (!$arrayProduct) {
 
                                 <div class="col-12 d-flex my-2 mt-3 justify-content-around">
                                     <div class="d-flex col-4 mx-1 my-auto">
-                                        <img class="w-22 my-auto" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
-                                        <img class="w-22" src="/res/img/star.png">
                                     </div>
 
                                     <h6 class="my-auto mx-3 text-12">250 отзывов</h6>
@@ -484,9 +512,12 @@ if (!$arrayProduct) {
                 <div class="col-11 mx-auto p-0 my-4 mt-4 d-flex justify-content-between">
                     <h1 class="fs-5 fw-bold">Купить товар</h1>
 
-                    <svg data-bs-dismiss="modal" class="cursor" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.2929 0.292893L0.292893 18.2929C0.105357 18.4804 0 18.7348 0 19C0 19.2652 0.105357 19.5196 0.292893 19.7071C0.48043 19.8946 0.734783 20 1 20C1.26522 20 1.51957 19.8946 1.70711 19.7071L19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292894C19.5196 0.105357 19.2652 0 19 0C18.7348 0 18.4804 0.105357 18.2929 0.292893Z" fill="white"/>
-                        <path d="M1.70711 0.292893C1.51957 0.105357 1.26522 0 1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711L18.2929 19.7071C18.4804 19.8946 18.7348 20 19 20C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19C20 18.7348 19.8946 18.4804 19.7071 18.2929L1.70711 0.292893Z" fill="white"/>
+                    <svg data-bs-dismiss="modal" class="cursor" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.2929 0.292893L0.292893 18.2929C0.105357 18.4804 0 18.7348 0 19C0 19.2652 0.105357 19.5196 0.292893 19.7071C0.48043 19.8946 0.734783 20 1 20C1.26522 20 1.51957 19.8946 1.70711 19.7071L19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292894C19.5196 0.105357 19.2652 0 19 0C18.7348 0 18.4804 0.105357 18.2929 0.292893Z"
+                              fill="white"/>
+                        <path d="M1.70711 0.292893C1.51957 0.105357 1.26522 0 1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711L18.2929 19.7071C18.4804 19.8946 18.7348 20 19 20C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19C20 18.7348 19.8946 18.4804 19.7071 18.2929L1.70711 0.292893Z"
+                              fill="white"/>
                     </svg>
                 </div>
             </div>
@@ -530,7 +561,8 @@ if (!$arrayProduct) {
                         <div class="d-flex align-items-center col-4">
                             <h6 class="text-white text-14 fw-bolder d-block my-auto">Количество </h6>
                         </div>
-                        <input type="number" id="quantity" oninput="ChekInputAmount()" max="10" class="col-4 text-white border-0 input-price-seller px-3">
+                        <input type="number" id="quantity" oninput="ChekInputAmount()" max="10"
+                               class="col-4 text-white border-0 input-price-seller px-3">
                     </div>
 
                     <div class="d-flex col-12 m-auto align-items-center my-3">
@@ -568,7 +600,7 @@ if (!$arrayProduct) {
                     <h6 class="text-14 text-danger h6-error"></h6>
 
                     <div class="col-12 m-auto d-flex py-3">
-                        <button  onclick="Purchase()" id="save_order" data-id="" type="button"
+                        <button onclick="Purchase()" id="save_order" data-id="" type="button"
                                 class="btn bg_blue fw-bold small_shadow col-2 text-white button_loading_modal">Купить
                         </button>
                         <button type="button" class="btn btn-dg-danger fw-bold small_shadow col-2 mx-4 text-white "
@@ -582,8 +614,6 @@ if (!$arrayProduct) {
 </div>
 
 
-
-
 <!-- Modal -->
 <div class="modal fade" id="ModalGoodOrder" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="purchaseModal" aria-hidden="true">
@@ -593,15 +623,19 @@ if (!$arrayProduct) {
                 <div class="col-11 mx-auto p-0 my-4 mt-4 d-flex justify-content-between">
                     <h1 class="fs-5 fw-bold">Благодарим за покупку!</h1>
 
-                    <svg data-bs-dismiss="modal" class="cursor" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.2929 0.292893L0.292893 18.2929C0.105357 18.4804 0 18.7348 0 19C0 19.2652 0.105357 19.5196 0.292893 19.7071C0.48043 19.8946 0.734783 20 1 20C1.26522 20 1.51957 19.8946 1.70711 19.7071L19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292894C19.5196 0.105357 19.2652 0 19 0C18.7348 0 18.4804 0.105357 18.2929 0.292893Z" fill="white"/>
-                        <path d="M1.70711 0.292893C1.51957 0.105357 1.26522 0 1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711L18.2929 19.7071C18.4804 19.8946 18.7348 20 19 20C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19C20 18.7348 19.8946 18.4804 19.7071 18.2929L1.70711 0.292893Z" fill="white"/>
+                    <svg data-bs-dismiss="modal" class="cursor" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.2929 0.292893L0.292893 18.2929C0.105357 18.4804 0 18.7348 0 19C0 19.2652 0.105357 19.5196 0.292893 19.7071C0.48043 19.8946 0.734783 20 1 20C1.26522 20 1.51957 19.8946 1.70711 19.7071L19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292894C19.5196 0.105357 19.2652 0 19 0C18.7348 0 18.4804 0.105357 18.2929 0.292893Z"
+                              fill="white"/>
+                        <path d="M1.70711 0.292893C1.51957 0.105357 1.26522 0 1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711L18.2929 19.7071C18.4804 19.8946 18.7348 20 19 20C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19C20 18.7348 19.8946 18.4804 19.7071 18.2929L1.70711 0.292893Z"
+                              fill="white"/>
                     </svg>
                 </div>
             </div>
             <div class="modal-body modal_bg p-0 border-0 rounded-bottom">
                 <div class="col-11 m-auto p-0">
-                    <p class="text-14 my-fw opacity-75 copy_product_id">Номер заказа <span id="id_order_good" class="mx-3"></span></p>
+                    <p class="text-14 my-fw opacity-75 copy_product_id">Номер заказа <span id="id_order_good"
+                                                                                           class="mx-3"></span></p>
                     <p class="text-14 opacity-75 copy_product_name"><?php echo $arrayProduct['name'] ?></p>
 
                     <div class="d-flex col-12">
@@ -611,8 +645,10 @@ if (!$arrayProduct) {
                             <input type="hidden" id="discount" value="<?php echo $arrayProduct['discount'] ?>">
 
 
-                            <p class="text-14 opacity-75 text-light fw-light copy_product_quantity">Кол-во <span id="quantity_modal_good" class="mx-3">123 шт.</span></p>
-                            <p class="text-14 opacity-75 copy_product_price">Сумма <span id="amount_modal_good" class="mx-3"></span></p>
+                            <p class="text-14 opacity-75 text-light fw-light copy_product_quantity">Кол-во <span
+                                        id="quantity_modal_good" class="mx-3">123 шт.</span></p>
+                            <p class="text-14 opacity-75 copy_product_price">Сумма <span id="amount_modal_good"
+                                                                                         class="mx-3"></span></p>
                         </div>
                         <div>
                             <p class="text-14 opacity-75 text-light fw-light">Рейтинг
@@ -634,15 +670,18 @@ if (!$arrayProduct) {
                     </div>
 
                     <div class="col-12 mx-auto my-4">
-                        <button id="ModalReviewButton" class="col-6 border-0 d-block mx-auto my-3 bg-white bg-opacity-10 text-white text-center text-decoration-none py-1 rounded-3">
+                        <button id="ModalReviewButton"
+                                class="col-6 border-0 d-block mx-auto my-3 bg-white bg-opacity-10 text-white text-center text-decoration-none py-1 rounded-3">
                             Оставить отзыв
                         </button>
 
-                        <a class="col-6 d-block mx-auto my-3 bg-white bg-opacity-10 text-white text-center text-decoration-none py-1 rounded-3" href="/page/client/orders.php">
+                        <a class="col-6 d-block mx-auto my-3 bg-white bg-opacity-10 text-white text-center text-decoration-none py-1 rounded-3"
+                           href="/page/client/orders.php">
                             Мои покупки
                         </a>
 
-                        <a class="col-6 d-block mx-auto my-3 bg_blue text-white text-center text-decoration-none py-1 rounded-3" href="">
+                        <a class="col-6 d-block mx-auto my-3 bg_blue text-white text-center text-decoration-none py-1 rounded-3"
+                           href="">
                             Скачать товар
                         </a>
                     </div>
@@ -662,9 +701,12 @@ if (!$arrayProduct) {
                 <div class="col-11 mx-auto p-0 my-4 mt-4 d-flex justify-content-between">
                     <h1 class="fs-5 fw-bold col-11 mx-auto">Напишите отзыв о товаре</h1>
 
-                    <svg data-bs-dismiss="modal" class="cursor" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.2929 0.292893L0.292893 18.2929C0.105357 18.4804 0 18.7348 0 19C0 19.2652 0.105357 19.5196 0.292893 19.7071C0.48043 19.8946 0.734783 20 1 20C1.26522 20 1.51957 19.8946 1.70711 19.7071L19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292894C19.5196 0.105357 19.2652 0 19 0C18.7348 0 18.4804 0.105357 18.2929 0.292893Z" fill="white"/>
-                        <path d="M1.70711 0.292893C1.51957 0.105357 1.26522 0 1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711L18.2929 19.7071C18.4804 19.8946 18.7348 20 19 20C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19C20 18.7348 19.8946 18.4804 19.7071 18.2929L1.70711 0.292893Z" fill="white"/>
+                    <svg data-bs-dismiss="modal" class="cursor" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.2929 0.292893L0.292893 18.2929C0.105357 18.4804 0 18.7348 0 19C0 19.2652 0.105357 19.5196 0.292893 19.7071C0.48043 19.8946 0.734783 20 1 20C1.26522 20 1.51957 19.8946 1.70711 19.7071L19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292894C19.5196 0.105357 19.2652 0 19 0C18.7348 0 18.4804 0.105357 18.2929 0.292893Z"
+                              fill="white"/>
+                        <path d="M1.70711 0.292893C1.51957 0.105357 1.26522 0 1 0C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711L18.2929 19.7071C18.4804 19.8946 18.7348 20 19 20C19.2652 20 19.5196 19.8946 19.7071 19.7071C19.8946 19.5196 20 19.2652 20 19C20 18.7348 19.8946 18.4804 19.7071 18.2929L1.70711 0.292893Z"
+                              fill="white"/>
                     </svg>
                 </div>
             </div>
@@ -673,13 +715,19 @@ if (!$arrayProduct) {
                     <p class="text-14 col-11 mx-auto opacity-75 copy_product_name"><?php echo $arrayProduct['name'] ?></p>
 
                     <div class="col-11 bg-white bg-opacity-10 rounded-3 p-3 px-4 mx-auto d-flex align-items-center">
-                        <svg class="my-auto" width="45" height="45" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M22.5 4.21875C22.5 4.21875 26.2184 4.21875 29.6163 5.65596C29.6163 5.65596 32.8973 7.04369 35.4268 9.5732C35.4268 9.5732 37.9563 12.1027 39.344 15.3837C39.344 15.3837 40.7812 18.7816 40.7812 22.5C40.7812 22.5 40.7812 26.2184 39.344 29.6163C39.344 29.6163 37.9563 32.8973 35.4268 35.4268C35.4268 35.4268 32.8973 37.9563 29.6163 39.344C29.6163 39.344 26.2184 40.7812 22.5 40.7812C22.5 40.7812 18.7816 40.7812 15.3837 39.344C15.3837 39.344 12.1027 37.9563 9.5732 35.4268C9.5732 35.4268 7.04369 32.8973 5.65596 29.6163C5.65596 29.6163 4.21875 26.2184 4.21875 22.5C4.21875 22.5 4.21875 18.7816 5.65596 15.3837C5.65596 15.3837 7.04369 12.1027 9.57321 9.5732C9.57321 9.5732 12.1027 7.04369 15.3837 5.65596C15.3837 5.65596 18.7816 4.21875 22.5 4.21875ZM22.5 7.03125C22.5 7.03125 19.352 7.03125 16.4793 8.24628C16.4793 8.24628 13.7036 9.42032 11.5619 11.5619C11.5619 11.5619 9.42032 13.7036 8.24628 16.4793C8.24628 16.4793 7.03125 19.352 7.03125 22.5C7.03125 22.5 7.03125 25.648 8.24628 28.5207C8.24628 28.5207 9.42032 31.2964 11.5619 33.4381C11.5619 33.4381 13.7036 35.5797 16.4793 36.7537C16.4793 36.7537 19.352 37.9688 22.5 37.9688C22.5 37.9688 25.648 37.9688 28.5207 36.7537C28.5207 36.7537 31.2964 35.5797 33.4381 33.4381C33.4381 33.4381 35.5797 31.2964 36.7537 28.5207C36.7537 28.5207 37.9688 25.648 37.9688 22.5C37.9688 22.5 37.9688 19.352 36.7537 16.4793C36.7537 16.4793 35.5797 13.7036 33.4381 11.5619C33.4381 11.5619 31.2964 9.42031 28.5207 8.24628C28.5207 8.24628 25.648 7.03125 22.5 7.03125Z" fill="white"/>
-                            <path d="M22.5 32.3438H23.9062C24.6829 32.3438 25.3125 31.7141 25.3125 30.9375C25.3125 30.1609 24.6829 29.5312 23.9062 29.5312V21.0938C23.9062 20.3171 23.2766 19.6875 22.5 19.6875H21.0938C20.3171 19.6875 19.6875 20.3171 19.6875 21.0938C19.6875 21.8704 20.3171 22.5 21.0938 22.5V30.9375C21.0938 31.7141 21.7234 32.3438 22.5 32.3438Z" fill="white"/>
-                            <path d="M24.2578 14.7656C24.2578 15.9306 23.3133 16.875 22.1484 16.875C20.9835 16.875 20.0391 15.9306 20.0391 14.7656C20.0391 13.6006 20.9835 12.6562 22.1484 12.6562C23.3133 12.6562 24.2578 13.6006 24.2578 14.7656Z" fill="white"/>
+                        <svg class="my-auto" width="45" height="45" viewBox="0 0 45 45" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M22.5 4.21875C22.5 4.21875 26.2184 4.21875 29.6163 5.65596C29.6163 5.65596 32.8973 7.04369 35.4268 9.5732C35.4268 9.5732 37.9563 12.1027 39.344 15.3837C39.344 15.3837 40.7812 18.7816 40.7812 22.5C40.7812 22.5 40.7812 26.2184 39.344 29.6163C39.344 29.6163 37.9563 32.8973 35.4268 35.4268C35.4268 35.4268 32.8973 37.9563 29.6163 39.344C29.6163 39.344 26.2184 40.7812 22.5 40.7812C22.5 40.7812 18.7816 40.7812 15.3837 39.344C15.3837 39.344 12.1027 37.9563 9.5732 35.4268C9.5732 35.4268 7.04369 32.8973 5.65596 29.6163C5.65596 29.6163 4.21875 26.2184 4.21875 22.5C4.21875 22.5 4.21875 18.7816 5.65596 15.3837C5.65596 15.3837 7.04369 12.1027 9.57321 9.5732C9.57321 9.5732 12.1027 7.04369 15.3837 5.65596C15.3837 5.65596 18.7816 4.21875 22.5 4.21875ZM22.5 7.03125C22.5 7.03125 19.352 7.03125 16.4793 8.24628C16.4793 8.24628 13.7036 9.42032 11.5619 11.5619C11.5619 11.5619 9.42032 13.7036 8.24628 16.4793C8.24628 16.4793 7.03125 19.352 7.03125 22.5C7.03125 22.5 7.03125 25.648 8.24628 28.5207C8.24628 28.5207 9.42032 31.2964 11.5619 33.4381C11.5619 33.4381 13.7036 35.5797 16.4793 36.7537C16.4793 36.7537 19.352 37.9688 22.5 37.9688C22.5 37.9688 25.648 37.9688 28.5207 36.7537C28.5207 36.7537 31.2964 35.5797 33.4381 33.4381C33.4381 33.4381 35.5797 31.2964 36.7537 28.5207C36.7537 28.5207 37.9688 25.648 37.9688 22.5C37.9688 22.5 37.9688 19.352 36.7537 16.4793C36.7537 16.4793 35.5797 13.7036 33.4381 11.5619C33.4381 11.5619 31.2964 9.42031 28.5207 8.24628C28.5207 8.24628 25.648 7.03125 22.5 7.03125Z"
+                                  fill="white"/>
+                            <path d="M22.5 32.3438H23.9062C24.6829 32.3438 25.3125 31.7141 25.3125 30.9375C25.3125 30.1609 24.6829 29.5312 23.9062 29.5312V21.0938C23.9062 20.3171 23.2766 19.6875 22.5 19.6875H21.0938C20.3171 19.6875 19.6875 20.3171 19.6875 21.0938C19.6875 21.8704 20.3171 22.5 21.0938 22.5V30.9375C21.0938 31.7141 21.7234 32.3438 22.5 32.3438Z"
+                                  fill="white"/>
+                            <path d="M24.2578 14.7656C24.2578 15.9306 23.3133 16.875 22.1484 16.875C20.9835 16.875 20.0391 15.9306 20.0391 14.7656C20.0391 13.6006 20.9835 12.6562 22.1484 12.6562C23.3133 12.6562 24.2578 13.6006 24.2578 14.7656Z"
+                                  fill="white"/>
                         </svg>
 
-                        <h6 class="col-10 mx-4 text-14 my-auto">Если качество покупки вас устроило, можете поставить только оценку товара. Остальные поля - не обязательны.</h6>
+                        <h6 class="col-10 mx-4 text-14 my-auto">Если качество покупки вас устроило, можете поставить
+                            только оценку товара. Остальные поля - не обязательны.</h6>
                     </div>
 
                     <div class="col-6 mx-auto d-flex justify-content-around my-4 align-items-center">
@@ -689,15 +737,21 @@ if (!$arrayProduct) {
                     </div>
 
                     <div class="col-11 mx-auto my-3 mt-5">
-                        <textarea placeholder="Достоинства" oninput="adjustTextareaHeight(event)"  class="text-14 col-12 mx-auto border-1 border-opacity-10 rounded-3 bg-white bg-opacity-10 p-4 py-2 text-white" name="" id="dignities" cols="30" rows="1"></textarea>
+                        <textarea placeholder="Достоинства" oninput="adjustTextareaHeight(event)"
+                                  class="text-14 col-12 mx-auto border-1 border-opacity-10 rounded-3 bg-white bg-opacity-10 p-4 py-2 text-white"
+                                  name="" id="dignities" cols="30" rows="1"></textarea>
                     </div>
 
                     <div class="col-11 mx-auto my-3">
-                        <textarea placeholder="Недостатки" oninput="adjustTextareaHeight(event)"  class="text-14 col-12 mx-auto border-1 border-opacity-10 rounded-3 bg-white bg-opacity-10 p-4 py-2 text-white" name="" id="disadvantages" cols="30" rows="1"></textarea>
+                        <textarea placeholder="Недостатки" oninput="adjustTextareaHeight(event)"
+                                  class="text-14 col-12 mx-auto border-1 border-opacity-10 rounded-3 bg-white bg-opacity-10 p-4 py-2 text-white"
+                                  name="" id="disadvantages" cols="30" rows="1"></textarea>
                     </div>
 
                     <div class="col-11 mx-auto my-3">
-                        <textarea placeholder="Комментарий к отзыву" oninput="adjustTextareaHeight(event)"  class="text-14 col-12 mx-auto border-1 border-opacity-10 rounded-3 bg-white bg-opacity-10 p-4 py-2 text-white" name="" id="comment" cols="30" rows="1"></textarea>
+                        <textarea placeholder="Комментарий к отзыву" oninput="adjustTextareaHeight(event)"
+                                  class="text-14 col-12 mx-auto border-1 border-opacity-10 rounded-3 bg-white bg-opacity-10 p-4 py-2 text-white"
+                                  name="" id="comment" cols="30" rows="1"></textarea>
                     </div>
 
                     <div class="col-11 mx-auto d-flex align-items-center my-5">
@@ -706,10 +760,15 @@ if (!$arrayProduct) {
                         <input type="hidden" id="order">
 
                         <input type="file" id="downImg" class="d-none" accept=".png, .jpeg, .jpg">
-                        <svg class="cursor svgAddImg" width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="cursor svgAddImg" width="100" height="100" viewBox="0 0 100 100" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
                             <rect width="100" height="100" rx="16" fill="white" fill-opacity="0.1"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M66.5456 63.7331C66.5456 63.7331 65.31 64.9688 63.5625 64.9688H35.4375C35.4375 64.9688 33.69 64.9688 32.4544 63.7331C32.4544 63.7331 31.2188 62.4975 31.2188 60.75V41.0625C31.2188 41.0625 31.2188 39.315 32.4544 38.0794C32.4544 38.0794 33.69 36.8438 35.4375 36.8438H40.3099L42.7049 33.2512C42.9657 32.86 43.4048 32.625 43.875 32.625H55.125C55.5952 32.625 56.0343 32.86 56.2951 33.2512L58.6901 36.8438H63.5625C63.5625 36.8438 65.31 36.8438 66.5456 38.0794C66.5456 38.0794 67.7812 39.315 67.7812 41.0625V60.75C67.7812 60.75 67.7812 62.4975 66.5456 63.7331ZM64.5569 61.7444C64.5569 61.7444 64.9688 61.3325 64.9688 60.75V41.0625C64.9688 41.0625 64.9688 40.48 64.5569 40.0681C64.5569 40.0681 64.145 39.6562 63.5625 39.6562H57.9375C57.4673 39.6562 57.0282 39.4213 56.7674 39.03L54.3724 35.4375H44.6276L42.2326 39.03C41.9718 39.4213 41.5327 39.6562 41.0625 39.6562H35.4375C35.4375 39.6562 34.855 39.6562 34.4431 40.0681C34.4431 40.0681 34.0312 40.48 34.0312 41.0625V60.75C34.0312 60.75 34.0312 61.3325 34.4431 61.7444C34.4431 61.7444 34.855 62.1562 35.4375 62.1562H63.5625C63.5625 62.1562 64.145 62.1562 64.5569 61.7444Z" fill="white"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M49.5 42.4688C49.5 42.4688 52.7037 42.4688 54.969 44.7341C54.969 44.7341 57.2344 46.9994 57.2344 50.2031C57.2344 50.2031 57.2344 53.4068 54.969 55.6722C54.969 55.6722 52.7037 57.9375 49.5 57.9375C49.5 57.9375 46.2963 57.9375 44.031 55.6722C44.031 55.6722 41.7656 53.4068 41.7656 50.2031C41.7656 50.2031 41.7656 46.9994 44.031 44.7341C44.031 44.7341 46.2963 42.4688 49.5 42.4688ZM49.5 45.2812C49.5 45.2812 47.4613 45.2812 46.0197 46.7228C46.0197 46.7228 44.5781 48.1644 44.5781 50.2031C44.5781 50.2031 44.5781 52.2418 46.0197 53.6834C46.0197 53.6834 47.4613 55.125 49.5 55.125C49.5 55.125 51.5387 55.125 52.9803 53.6834C52.9803 53.6834 54.4219 52.2418 54.4219 50.2031C54.4219 50.2031 54.4219 48.1644 52.9803 46.7228C52.9803 46.7228 51.5387 45.2812 49.5 45.2812Z" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M66.5456 63.7331C66.5456 63.7331 65.31 64.9688 63.5625 64.9688H35.4375C35.4375 64.9688 33.69 64.9688 32.4544 63.7331C32.4544 63.7331 31.2188 62.4975 31.2188 60.75V41.0625C31.2188 41.0625 31.2188 39.315 32.4544 38.0794C32.4544 38.0794 33.69 36.8438 35.4375 36.8438H40.3099L42.7049 33.2512C42.9657 32.86 43.4048 32.625 43.875 32.625H55.125C55.5952 32.625 56.0343 32.86 56.2951 33.2512L58.6901 36.8438H63.5625C63.5625 36.8438 65.31 36.8438 66.5456 38.0794C66.5456 38.0794 67.7812 39.315 67.7812 41.0625V60.75C67.7812 60.75 67.7812 62.4975 66.5456 63.7331ZM64.5569 61.7444C64.5569 61.7444 64.9688 61.3325 64.9688 60.75V41.0625C64.9688 41.0625 64.9688 40.48 64.5569 40.0681C64.5569 40.0681 64.145 39.6562 63.5625 39.6562H57.9375C57.4673 39.6562 57.0282 39.4213 56.7674 39.03L54.3724 35.4375H44.6276L42.2326 39.03C41.9718 39.4213 41.5327 39.6562 41.0625 39.6562H35.4375C35.4375 39.6562 34.855 39.6562 34.4431 40.0681C34.4431 40.0681 34.0312 40.48 34.0312 41.0625V60.75C34.0312 60.75 34.0312 61.3325 34.4431 61.7444C34.4431 61.7444 34.855 62.1562 35.4375 62.1562H63.5625C63.5625 62.1562 64.145 62.1562 64.5569 61.7444Z"
+                                  fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M49.5 42.4688C49.5 42.4688 52.7037 42.4688 54.969 44.7341C54.969 44.7341 57.2344 46.9994 57.2344 50.2031C57.2344 50.2031 57.2344 53.4068 54.969 55.6722C54.969 55.6722 52.7037 57.9375 49.5 57.9375C49.5 57.9375 46.2963 57.9375 44.031 55.6722C44.031 55.6722 41.7656 53.4068 41.7656 50.2031C41.7656 50.2031 41.7656 46.9994 44.031 44.7341C44.031 44.7341 46.2963 42.4688 49.5 42.4688ZM49.5 45.2812C49.5 45.2812 47.4613 45.2812 46.0197 46.7228C46.0197 46.7228 44.5781 48.1644 44.5781 50.2031C44.5781 50.2031 44.5781 52.2418 46.0197 53.6834C46.0197 53.6834 47.4613 55.125 49.5 55.125C49.5 55.125 51.5387 55.125 52.9803 53.6834C52.9803 53.6834 54.4219 52.2418 54.4219 50.2031C54.4219 50.2031 54.4219 48.1644 52.9803 46.7228C52.9803 46.7228 51.5387 45.2812 49.5 45.2812Z"
+                                  fill="white"/>
                         </svg>
 
                         <div class="col-5 mx-4">
@@ -717,7 +776,8 @@ if (!$arrayProduct) {
                                 до 10 изображений в формате PNG, JPEG.</h6>
 
                             <h6 class="my-1 text-error-down-image text-danger d-none">Введен неверный формат!</h6>
-                            <h6 class="my-1 text-error-down-image-count text-danger d-none">Выбранно 10 изображений!</h6>
+                            <h6 class="my-1 text-error-down-image-count text-danger d-none">Выбранно 10
+                                изображений!</h6>
                         </div>
                     </div>
 
@@ -727,7 +787,8 @@ if (!$arrayProduct) {
 
                     <div class="col-11 d-flex my-5">
                         <button class="col-2 mx-auto rounded-3 bg_blue text-center border-0 text-white" onclick="
-SendReviews()">Отправить</button>
+SendReviews()">Отправить
+                        </button>
                     </div>
 
                 </div>
@@ -759,9 +820,11 @@ SendReviews()">Отправить</button>
         scrollbar-width: none; /* Скрывает стандартные полосы прокрутки в Firefox */
         -ms-overflow-style: none; /* Скрывает стандартные полосы прокрутки в Internet Explorer и Edge */
     }
+
     textarea::-webkit-scrollbar {
         width: 0; /* Скрывает стандартные полосы прокрутки в Chrome и Safari */
     }
+
     textarea::placeholder {
         color: white;
         opacity: 1; /* Установка полной непрозрачности */

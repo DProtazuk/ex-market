@@ -29,11 +29,21 @@ else {
     $comment = NULL;
 }
 
+if ($_POST['arrayImg']) {
+    $arrayImg = json_decode($_POST['arrayImg']);
+    if(!empty($arrayImg)) {
+        ImageTransfer($arrayImg);
+        $arrayImg = json_encode($arrayImg);
+    }
+    else $arrayImg = NULL;
+}
+else $arrayImg = NULL;
 
 
-$sql = "INSERT INTO `reviews`(`unique_id`, `product_id`, `order_id`, `rating`, `dignities`, `disadvantages`, `comment`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+$sql = "INSERT INTO `reviews`(`unique_id`, `product_id`, `order_id`, `rating`, `dignities`, `disadvantages`, `comment`, `img`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 $pdo = $DB->prepare($sql);
-$pdo->execute(array($_COOKIE['unique_id'], $product_id, $order_id, $rating, $dignities, $disadvantages, $comment));
+$pdo->execute(array($_COOKIE['unique_id'], $product_id, $order_id, $rating, $dignities, $disadvantages, $comment, $arrayImg));
 $idReviews = $DB->lastInsertId();
 
 function ImageTransfer($array) {
@@ -44,25 +54,5 @@ function ImageTransfer($array) {
     }
 }
 
-if ($_POST['arrayImg']) {
-    $arrayImg = json_decode($_POST['arrayImg']);
-    ImageTransfer($arrayImg);
-
-    $parameters = [];
-
-    $sql = "INSERT INTO `reviews_img` (`id_reviews`, `img`) VALUES ";
-
-    foreach ($arrayImg as $item) {
-        $sql .= "(?, ?), ";
-
-        array_push($parameters, $idReviews);
-        array_push($parameters, $item);
-
-    }
-    $sql = substr(trim($sql), 0, -1);
-
-    $pdo = $DB->prepare($sql);
-    $pdo->execute($parameters);
-}
 
 echo json_encode("save");
