@@ -189,12 +189,14 @@ if ($status !== "open") {
 
 
 <br>
+
 <?php
 $directory = pathinfo(basename($_SERVER['PHP_SELF']), PATHINFO_FILENAME);
-if ($status === "open" and $directory === "shops") {
-    echo '<div class="col-12 scroll_none">';
-} else echo '<div class="col-12 scroll_none d-none">';
-?>
+if ($directory === "shops") {
+    if($status === "open") {
+        echo '<div class="col-12 scroll_none filter_div_shop">';
+    }
+    else echo '<div ="col-12 scroll_none d-none">';?>
 <div class="col-12">
     <h6 class="text-white text-center text-14 my-4">Типы аккаунтов</h6>
 
@@ -212,12 +214,9 @@ if ($status === "open" and $directory === "shops") {
 
     <button class="border_blue bg-transparent text-white rounded-3 col-8 d-block mx-auto text-14 mt-3 reset-filter">Сбросить фильтр</button>
 </div>
-
-
 </div>
-
-
-
+<?php }
+?>
 
 
 
@@ -229,10 +228,11 @@ if ($status === "open" and $directory === "shops") {
 
 <?php
 $directory = pathinfo(basename($_SERVER['PHP_SELF']), PATHINFO_FILENAME);
-if ($status === "open" and $directory === "shop") {
+if ($directory === "shop") {
+if($status === "open") {
     echo '<div class="col-12 scroll_none filter_div_shop">';
-} else echo '<div class="col-12 scroll_none d-none">';
-?>
+}
+else echo '<div ="col-12 scroll_none d-none">';?>
 <div class="col-12">
         <h6 class="text-white text-center text-14 my-4 cursor col-10 d-flex justify-content-center mx-auto">Типы аккаунтов</h6>
 
@@ -300,20 +300,19 @@ border-radius: 5px;">
 
     <button class="border_blue bg-transparent text-white rounded-3 col-8 d-block mx-auto text-14 mt-3 reset-filter">Сбросить фильтр</button>
 </div>
-
-
-
-
 </div>
-
+<?php }
+?>
 
 
 <?php
 $directory = pathinfo(basename($_SERVER['PHP_SELF']), PATHINFO_FILENAME);
-if ($status === "open" and $directory === "products") {
-    echo '<div class="col-12 scroll_none filter_div_shop">';
-} else echo '<div class="col-12 scroll_none d-none">';
-?>
+if ($directory === "products") {
+    if($status === "open") {
+        echo '<div class="col-12 scroll_none filter_div_shop">';
+    }
+    else echo '<div ="col-12 scroll_none d-none">';?>
+
 <div class="col-12">
     <h6 class="text-white text-center text-14 my-4 cursor col-10 d-flex justify-content-center mx-auto">Типы аккаунтов</h6>
 
@@ -381,12 +380,9 @@ border-radius: 5px;">
 
     <button class="border_blue bg-transparent text-white rounded-3 col-8 d-block mx-auto text-14 mt-3 reset-filter">Сбросить фильтр</button>
 </div>
-
-
-
-
 </div>
-
+<?php }
+?>
 
 </div>
 

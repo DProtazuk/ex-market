@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="992903cd-43cd-48b1-be71-a2953af28a66" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/client/referral_program/add_value.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/client/referral_program/update_value.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/client/shop_filter_products.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/client/update_profile.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/client/products.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/client/order/select_order.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/client/orders/select.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/ReferralProgram.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ReferralProgram.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/client/reviews/create_reviews.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/client/reviews/create_reviews.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/entry_system/EntrySystem.php" beforeDir="false" afterPath="$PROJECT_DIR$/backend/entry_system/EntrySystem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/client/referral_program.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/referral_program.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/markup/components/client/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/markup/components/client/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/client/balance.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/client/balance.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/markup/components/client/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/markup/components/client/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/client/product/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/product/product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/client/product/products.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/product/products.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/client/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/profile.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/page/client/referral_program.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/referral_program.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/page/client/orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/page/client/orders.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,7 +136,11 @@
       <workItem from="1691299645120" duration="164000" />
       <workItem from="1691306379144" duration="6665000" />
       <workItem from="1691323952582" duration="5005000" />
-      <workItem from="1691350084143" duration="607000" />
+      <workItem from="1691350084143" duration="1241000" />
+      <workItem from="1691381109513" duration="7043000" />
+      <workItem from="1691413457129" duration="601000" />
+      <workItem from="1691417023740" duration="1747000" />
+      <workItem from="1691449010268" duration="1624000" />
     </task>
     <servers />
   </component>
